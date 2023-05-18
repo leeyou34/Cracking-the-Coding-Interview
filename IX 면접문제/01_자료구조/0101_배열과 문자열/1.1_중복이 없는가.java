@@ -17,7 +17,7 @@
 import java.util.Scanner;
 
 public class DuplicateCharacterChecker {
-    public static boolean hasDuplicateCharacters(String str) { //메소드 구현
+    public static boolean hasDuplicateCharacters(String str) {
         int n = str.length();
         // 각 문자의 등장 여부를 확인하기 위한 boolean 배열
         boolean[] visited = new boolean[256];
@@ -34,8 +34,45 @@ public class DuplicateCharacterChecker {
         // 중복이 없는 경우
         return false;
     }
+    
+    public static boolean hasDuplicateCharactersNoDataStructure(String str) {// 자료 구조 없이 메소드 생성
+    	int n = str.length();
+    	
+    	for(int i =0; i < n-1; i++) {
+    		char ch = str.charAt(i);
+    		for(int j=i+1; j<n; j++) {
+    			if(ch == str.charAt(j)) {
+    				return true;
+    			}
+    		}
+    	}
+    	
+    	return false;
+    }
+    
+    public static boolean hasDuplicateCharactersWithBitVector(String str) {
+    	// 비트 벡터 선언 및 초기화
+    	int [] bitVector = new int[8];
+    	
+    	for(int i = 0; i < str.length(); i++) {
+    		char ch = str.charAt(i);
+    		int bitIndex = ch/32; // 비트 벡터 인덱스 계산
+    		int bitPosition = ch%32; // 비트 벡터 내 비트 위치 계산
+    		
+    		// 이미 해당 비트가 1인 경우 중복이 있다고 판단한다.
+    		if ((bitVector[bitIndex] & (1<< bitPosition)) !=0) {
+    			return true;
+    		}
+    		
+    		// 해당 비트를 1로 설정
+    		bitVector[bitIndex] |= (1 << bitPosition);
+    	}
+    	
+    	return false;
+    }
+    
 
-    public static void main(String[] args) { // 작동용 메인 매소드.
+    public static void main(String[] args) {
         Scanner sc = new Scanner(System.in);
         
         while (true) {
@@ -46,12 +83,12 @@ public class DuplicateCharacterChecker {
     		break;
     	} else {
         
-    	System.out.println(hasDuplicateCharacters(input1)); // true (l이 중복)
-     
-    	
+    	System.out.println(hasDuplicateCharacters(input1)); // 자료구조가 들어간 method가 실행된다.
+    	System.out.println(hasDuplicateCharactersNoDataStructure(input1)); // 자료구조가 들어가지 않은 메소드가 실행된다. 
+    	System.out.println(hasDuplicateCharactersWithBitVector(input1)); // 비트 백터를 사용하여 필요 공간 1/8로 줄임
         }   
     }
     }
 }
 
-// 위의 코드를 IDE에 넣어 실행시 메인메소드가 boolean 배열 메소드를 사용하여 문자열에서 중복된 문자를 확인한다.
+// 위의 코드를 IDE에 넣어 실행시 메인메소드가 문자열에서 중복된 문자를 확인한다.
