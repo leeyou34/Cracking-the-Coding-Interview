@@ -73,6 +73,7 @@ public class DuplicateCharacterChecker {
     
 
     public static void main(String[] args) {
+        DuplicateCharacterChecker checker = new  DuplicateCharacterChecker();
         Scanner sc = new Scanner(System.in);
         
         while (true) {
@@ -82,11 +83,27 @@ public class DuplicateCharacterChecker {
     	if (input1.isEmpty()) {
     		break;
     	} else {
-        
-    	System.out.println(hasDuplicateCharacters(input1)); // 자료구조가 들어간 method가 실행된다.
-    	System.out.println(hasDuplicateCharactersNoDataStructure(input1)); // 자료구조가 들어가지 않은 메소드가 실행된다. 
-    	System.out.println(hasDuplicateCharactersWithBitVector(input1)); // 비트 백터를 사용하여 필요 공간 1/8로 줄임
-        }   
+        //시간 측정용 코드 작성
+        //자료 구조가 적용된 메소드의 시간 측정
+    	long startTime = System.nanoTime();
+        boolean hasDuplicateCharacters = checker.hasDuplicateCharacters(input1);
+        long endTime = System.nanoTime();
+        System.out.println("hasDuplicateCharacters: " + hasDuplicateCharacters);
+        System.out.println("실행 시간 (hasDuplicateCharacters): " + (endTime - startTime) + " ns");
+
+        //자료 구조가 미포함된 메소드의 시간 측정
+        startTime = System.nanoTime();
+        boolean hasDuplicateCharactersNoDataStructure = checker.hasDuplicateCharactersNoDataStructure(input1);
+        endTime = System.nanoTime();
+        System.out.println("hasDuplicateCharactersNoDataStructure: " + hasDuplicateCharactersNoDataStructure);
+        System.out.println("실행 시간 (hasDuplicateCharactersNoDataStructure): " + (endTime - startTime) + " ns");
+
+        //비트벡터가 포함된 메소드의 시간 측정
+        startTime = System.nanoTime();
+        boolean hasDuplicateCharactersWithBitVector = checker.hasDuplicateCharactersWithBitVector(input1);
+        endTime = System.nanoTime();
+        System.out.println("hasDuplicateCharactersWithBitVector: " + hasDuplicateCharactersWithBitVector);
+        System.out.println("실행 시간 (hasDuplicateCharactersWithBitVector): " + (endTime - startTime) + " ns");}   
     }
     }
 }
