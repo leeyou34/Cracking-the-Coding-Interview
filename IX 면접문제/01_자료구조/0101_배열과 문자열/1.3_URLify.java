@@ -42,17 +42,25 @@ public class URLify {
 	public static void main(String [] args) {
 		Scanner sc = new Scanner(System.in);
 		
-		System.out.println("문자열을 입력하세요: ");
-		String input = sc.nextLine();
-		int trueLength = input.length();
-		char [] str = new char[trueLength + 3 * input.split(" ").length]; // 공백을 '%20'으로 바꾼 후의 문자열을 담을 배열
+		while(true) { // System에 계속 입력 하고 싶을 
+			System.out.println("문자열을 입력하세요: ");
+			String input = sc.nextLine();
+			int trueLength = input.length();
+			char [] str = new char[trueLength + 3 * input.split(" ").length]; // 공백을 '%20'으로 바꾼 후의 문자열을 담을 배열
 
-		for (int i = 0; i < trueLength; i++) {
-			str[i] = input.charAt(i);
+			for (int i = 0; i < trueLength; i++) {
+				str[i] = input.charAt(i);
+			}
+		
+			replaceSpaces(str, trueLength);
+			System.out.println("결과: " + new String(str));
+			
+			if(input.contentEquals("exit")) {
+				System.out.println("exit을 입력 하셨음으로 프로그램이 종료 됩니다.");
+				break;
+			}
 		}
 		
-		replaceSpaces(str, trueLength);
-		System.out.println("결과: " + new String(str));
 		/*			문자열이 주어졌을때.	
  *	
  * 		char [] str = "Mr John Smith    ".toCharArray();
